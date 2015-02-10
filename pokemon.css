@@ -97,6 +97,9 @@ button {
   h1, .fn-results {
     font-size: 7vh;
   }
+  button {
+    font-size: 0.8em;
+  }
   #buttons-result {
     width: 100%;
   }
