@@ -60,7 +60,7 @@ function getPokemon(){
   }
  
   if (pokeArray.length == 0) {
-    $('#buttons-result').empty().html("Your Kanto Pokedex is full!<br>Play again?<br>").append('<a href="/"><button>YES!</button></a>'); // use refresh button href="/"
+    $('#buttons-result').empty().html("Your Kanto Pokedex is full!<br>Play again?<br>").append('<a href="/pokemon"><button>YES!</button></a>'); // use refresh button href="/"
     return;
   }
   // i want to store the number of the pokemon that have appeared in the memo array
