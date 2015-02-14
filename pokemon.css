@@ -10,6 +10,9 @@ body {
   -2px 2px 0 #0C5E9B,
   2px 2px 0 #0C5E9B;
 }
+h3 {
+  margin: 0 0 3% 0;
+}
 main {
   max-width: 900px;
   margin: 0 auto;
@@ -33,7 +36,7 @@ main {
   position: relative;
   min-height: 200px;
   width: 43%;
-  padding: 10% 2%;
+  padding: 7% 2%;
 }
 img {
   width: 88%;
@@ -56,7 +59,7 @@ img {
   -ms-filter: brightness(1);
   filter: brightness(1);
 }
-.reveal, .play-again {
+.reveal, .play-again, #pokedexText {
   display: none;
 }
 .fn-results {
