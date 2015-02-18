@@ -24,7 +24,7 @@ function Pkmn(name, sprite) {
 $(document).ready(function() {
   pokePool(max);
   getPkmn();
-  //console.log(pokeArray);
+  console.log(pokeArray);
 });
 
 $('.play-first').on('click', firstCatch);
@@ -44,20 +44,21 @@ function firstCatch() {
 }
 
 function getPkmn() {
-  var number = pokeArray.shift();
-  
-  if (sprite.attr('src') != "") {
-    sprite.removeAttr('src');
-    sprite.removeClass('revealSilh');
-  }
-  
   if (pokeArray.length == 0) {
     $('#buttons-result').empty()
                         .html("Your Kanto Pokedex is full!<br>Play again?<br>")
                         .append('<a href="/pokemon"><button>YES!</button></a>'); 
     return;
   }
+
+  if (sprite.attr('src') != "") {
+    sprite.removeAttr('src');
+    sprite.removeClass('revealSilh');
+  }
+  
   //console.log(number);
+
+  var number = pokeArray.shift();
 
   if (localStorage.getItem(number)) {
     getLocalData(number);
@@ -67,7 +68,7 @@ function getPkmn() {
   }
   
   $('.play-again').hide();
-  
+
   if (firstCall) {
     firstCall = false;
     return;
@@ -101,6 +102,7 @@ function revealPokemon() {
                      .animate({opacity: 1}, 1200);
 
   }
+
   $('#pokeseen').html(max - pokeArray.length)
                 .css({'opacity': '0'})
                 .animate({opacity: 1}, 1200);
