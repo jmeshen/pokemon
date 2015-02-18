@@ -1,19 +1,10 @@
-/* session storage
-
-function Pkmn(name, number, sprite) {
-  this.name = name;
-  this.number = number;
-  this.sprite = sprite;
-};
-*/
-// var memo = [];
-
+// globals
 var max = 151;
 var pokeArray = [];
 var sprite = $('.pokesprite');
 var firstCall = true;
 
-Array.prototype.shuffle = function (){
+Array.prototype.shuffle = function () {
   var i = this.length, j, temp;
   if ( i == 0 ) return;
   while ( --i ) {
@@ -24,17 +15,23 @@ Array.prototype.shuffle = function (){
   }
 };
 
+// Pkmn Class
+function Pkmn(name, sprite) {
+  this.name = name;
+  this.sprite = sprite;
+}
+
+$(document).ready(function() {
+  pokePool(max);
+  getPkmn();
+  //console.log(pokeArray);
+});
+
 $('.play-first').on('click', firstCatch);
-$('.play-again').on('click', getPokemon);
+$('.play-again').on('click', getPkmn);
 $('.reveal').on('click', revealPokemon);
 
-$(document).ready(function(){
-  pokePool(max);
-  console.log(pokeArray);
-  getPokemon();
-});
 function pokePool(max) {
-  
   for (i = 1; i <= max; i++) {
     pokeArray.push(i.toString());
   } 
@@ -42,127 +39,115 @@ function pokePool(max) {
 }
 
 function firstCatch() {
-  //firstCall = false;
   $('.play-first').hide();
   revealPokemon();
 }
 
-function randPokemon() {
-  return Math.floor((Math.random() * 15) + 1).toString();
-}
-
-function getPokemon(){
-
+function getPkmn() {
+  var number = pokeArray.shift();
   
-  if (sprite.attr('src') != ""){
+  if (sprite.attr('src') != "") {
     sprite.removeAttr('src');
     sprite.removeClass('revealSilh');
   }
- 
+  
   if (pokeArray.length == 0) {
-    $('#buttons-result').empty().html("Your Kanto Pokedex is full!<br>Play again?<br>").append('<a href="/pokemon"><button>YES!</button></a>'); // use refresh button href="/"
+    $('#buttons-result').empty()
+                        .html("Your Kanto Pokedex is full!<br>Play again?<br>")
+                        .append('<a href="/pokemon"><button>YES!</button></a>'); 
     return;
   }
-  // i want to store the number of the pokemon that have appeared in the memo array
-  // when i call getPokemon and generate a random number using randPokemon(); immediately check if number exists in memo
-  // if exists, pick new number
-  // var number = randPokemon();
-  var number = pokeArray.shift();
-  console.log(number);
-  //pokeSeen.push(number);
-  //console.log(pokeSeen);
-  /*if (memo.indexOf(number) > -1) { 
-    console.log("Hey this number already exists!")
-    for (var i = 0; i <= memo.length; i++) {
-      if (number == memo[i]) {
-        number = randPokemon(); 
-    console.log("New number: " + number);
+  //console.log(number);
 
-      }
-    }
-    memo.push(number);
-    console.log(memo);
- 
+  if (localStorage.getItem(number)) {
+    getLocalData(number);
   } else {
-    memo.push(number);
-    console.log(memo);
+    pkData(number, storeObj);
+    //storePkmn(max);
   }
-  /*for (var i = 0; i <= memo.length; i++) {
-    if (number == memo[i]) {
-      number = randPokemon(); // select new number
-      console.log(number); // log new number
-    } else {
-      memo.push(number);
-    }
-    memo.push(number);
-  }*/
-  /*for (var i = 0; i < memo.length; i++) {
-    if (number == memo[i]) {
-      var number = randPokemon();
-      console.log(number);
-    }
-    memo.push(number);
-    console.log(memo);
-  }*/
   
-  getNameAndSprite(number);
-
-  $('.fn-results').css('visibility', 'hidden');
-  // buttons
   $('.play-again').hide();
-  // if not first play, then reveal
-  // figure how to track using memoization
+  
   if (firstCall) {
     firstCall = false;
     return;
   }
+
   $('.reveal').show();
-
 }
 
-function getNameAndSprite(number){
-  var genURL = "http://pokeapi.co/api/v1/pokemon/" + number;
-
-  $.ajax({     
-    type: "GET",
-    url: genURL,
-    dataType: 'jsonp',
-    success: function(pokemon){    
-        var name = pokemon.name.toUpperCase();
-        console.log(name);
-        $('.fn-results').html('<span> ' + name + ' </span>');
-        var spriteURL = "http://pokeapi.co" + pokemon.sprites[0].resource_uri;
-        //pkmn.setItem('name', name);
-        getSprite(spriteURL); // chaining ajax calls because national pokemon number doesn't correlate with the correct sprite
-    }
-  });
+function getLocalData(number) {
+  var pkSprite = JSON.parse(localStorage.getItem(number)).sprite;
+  var name = JSON.parse(localStorage.getItem(number)).name;
+  sprite.attr('src', pkSprite).hide().fadeIn();
+  //console.log("Got " + name + " from localStorage!");
+  changeResults(name);
 }
 
-function getSprite(spriteURL){
-
-  $.ajax({     
-    type: "GET",
-    url: spriteURL,
-    dataType: 'jsonp',
-    success: function(pokemon){    
-      var imgURL = "http://pokeapi.co" + pokemon.image;
-      //console.log(imgURL);
-      sprite.attr('src', imgURL); // adding img src
-    }
-  });
+function changeResults(name) {
+  $('.fn-results').html('<span> ' + name + ' </span>');
+  $('.fn-results').css('visibility', 'hidden');
 }
 
-function revealPokemon(){
+function revealPokemon() {
   $('.reveal').hide();
   sprite.toggleClass('revealSilh');
-  $('.fn-results').css({'opacity': '0', 'visibility': 'visible'}).animate({opacity: 1}, 1200);
+  $('.fn-results').css({'opacity': '0', 'visibility': 'visible'})
+                  .animate({opacity: 1}, 1200);
   $('.play-again').show();
   
-  if ($('#pokedexText').css('display') == 'none'){
-    $('#pokedexText').css({'opacity': '0', 'display': 'block'}).animate({opacity: 1}, 1200);
+  if ($('#pokedexText').css('display') == 'none') {
+    $('#pokedexText').css({'opacity': '0', 'display': 'block'})
+                     .animate({opacity: 1}, 1200);
 
   }
-  $('#pokeseen').html(max - pokeArray.length).css({'opacity': '0'}).animate({opacity: 1}, 1200);
-
+  $('#pokeseen').html(max - pokeArray.length)
+                .css({'opacity': '0'})
+                .animate({opacity: 1}, 1200);
 }
+
+// store data into localStorage
+//var pokeData = [];
+function storeObj(num, pkmn) {
+  //pokeData.push(pkmn);
+  localStorage.setItem(num, JSON.stringify(pkmn));
+  //console.log("Stored " + pkmn.name + " to localStorage");
+}
+
+function pkData(number, storeObj) {
+  var nameURL = "http://pokeapi.co/api/v1/pokemon/" + number;
+
+  $.ajax({     
+    type: "GET",
+    url: nameURL,
+    dataType: 'jsonp',
+    success: function(pokemon) {    
+      var name = pokemon.name.toUpperCase();
+      var spriteURL = "http://pokeapi.co/media/img/" + number + ".png"; 
+      var pkmn = new Pkmn(name, spriteURL);
+      sprite.attr('src', spriteURL).show(); 
+      changeResults(name);
+      storeObj(number, pkmn);
+    }    
+  });
+}
+
+function randPokemon() {
+  return Math.floor((Math.random() * max) + 1).toString();
+}
+function storePkmn(max) {
+  for (i = 1; i <= max; i++) {
+    console.log(i);
+    pkData(i, storeObj);
+  }  
+}
+
+
+/** TODO --
+  * track state of buttons
+  * store functions as methods of Pkmn class
+  * allow region selection at end of 151/region pokedex full
+  * revisit memoization vs selection pool
+  * store pkmn in the background during play
+  */
 
