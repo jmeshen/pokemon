@@ -24,12 +24,22 @@ function Pkmn(name, sprite) {
 $(document).ready(function() {
   pokePool(max);
   getPkmn();
-  console.log(pokeArray);
+  //console.log(pokeArray);
 });
 
 $('.play-first').on('click', firstCatch);
 $('.play-again').on('click', getPkmn);
 $('.reveal').on('click', revealPokemon);
+
+function lockButton() {
+  document.getElementById('fn-wait').disabled = true;
+  //console.log('reveal button is LOCKED');
+}
+
+function unlockButton() {
+  document.getElementById('fn-wait').disabled = false;
+  //console.log('reveal button is UNLOCKED');
+}
 
 function pokePool(max) {
   for (i = 1; i <= max; i++) {
@@ -50,7 +60,6 @@ function getPkmn() {
                         .append('<a href="/pokemon"><button>YES!</button></a>'); 
     return;
   }
-
   if (sprite.attr('src') != "") {
     sprite.removeAttr('src');
     sprite.removeClass('revealSilh');
@@ -74,12 +83,16 @@ function getPkmn() {
     return;
   }
 
+  lockButton();
+  $('.pokesprite').on('load', unlockButton);
   $('.reveal').show();
 }
 
 function getLocalData(number) {
   var pkSprite = JSON.parse(localStorage.getItem(number)).sprite;
   var name = JSON.parse(localStorage.getItem(number)).name;
+
+  // .hide() before .fadeIn() prevents filter glitch
   sprite.attr('src', pkSprite).hide().fadeIn();
   //console.log("Got " + name + " from localStorage!");
   changeResults(name);
@@ -143,7 +156,6 @@ function storePkmn(max) {
     pkData(i, storeObj);
   }  
 }
-
 
 /** TODO --
   * track state of buttons
