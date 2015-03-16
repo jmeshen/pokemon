@@ -89,7 +89,7 @@ button {
   font-size: 1em;
   letter-spacing: normal;
   margin: 10% auto;
-  
+  cursor: pointer; 
 }
 
 @font-face {
