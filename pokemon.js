@@ -138,7 +138,7 @@ function pkData(number, storeObj) {
     dataType: 'jsonp',
     success: function(pokemon) {    
       var name = pokemon.name.toUpperCase();
-      var spriteURL = "http://pokeapi.co/media/img/" + number + ".png"; 
+      var spriteURL = "./sprites/" + number + ".png"; 
       var pkmn = new Pkmn(name, spriteURL);
       sprite.attr('src', spriteURL).show(); 
       changeResults(name);
