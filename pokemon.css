@@ -5,7 +5,7 @@ body {
   -webkit-text-stroke: 2px #0C5E9B;
   text-shadow:
   3px 3px 0 #000,
-  -2px -2px 0 #0C5E9B,  
+  -2px -2px 0 #0C5E9B,
   2px -2px 0 #0C5E9B,
   -2px 2px 0 #0C5E9B,
   2px 2px 0 #0C5E9B;
@@ -42,7 +42,6 @@ img {
   display: none;
   width: 88%;
   padding: 5%;
-  
   -webkit-filter: brightness(0);
   -moz-filter: brightness(0);
   -o-filter: brightness(0);
@@ -50,11 +49,10 @@ img {
   filter: brightness(0);
 
   transition: filter 0.4s ease-in-out;
-  -webkit-transition:-webkit-filter 0.4s ease-in-out;   
-  -moz-transition:-moz-filter 0.4s ease-in-out;  
-  -o-transition:-o-filter 0.4s ease-in-out;  
-  -m-transition:-ms-filter 0.4s ease-in-out;  
-
+  -webkit-transition:-webkit-filter 0.4s ease-in-out;
+  -moz-transition:-moz-filter 0.4s ease-in-out;
+  -o-transition:-o-filter 0.4s ease-in-out;
+  -m-transition:-ms-filter 0.4s ease-in-out;
 }
 .revealSilh {
   -webkit-filter: brightness(1);
@@ -68,12 +66,12 @@ img {
 }
 .fn-results {
   visibility: hidden;
-  font-size: 2.1em; 
+  font-size: 2.1em;
   color: #0C5E9B;
   -webkit-text-stroke: 2px #FDAF2A;
   text-shadow:
   3px 3px 0 #000,
-  -2px -2px 0 #FDAF2A,  
+  -2px -2px 0 #FDAF2A,
   2px -2px 0 #FDAF2A,
   -2px 2px 0 #FDAF2A,
   2px 2px 0 #FDAF2A;
@@ -89,13 +87,12 @@ button {
   font-size: 1em;
   letter-spacing: normal;
   margin: 10% auto;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 @font-face {
   font-family: "Pokemon";
   src: url("font/PokemonSolid.ttf");
-  
 }
 
 /*Media Queries*/
@@ -115,7 +112,4 @@ button {
     float: none;
     display: inline-block;
   }
- 
 }
-
-

@@ -1,0 +1,32 @@
+{
+  "name": "pokemon",
+  "version": "1.0.0",
+  "description": "Who's That Pokémon?",
+  "main": "pokemon.js",
+  "scripts": {
+    "babel": "babel pokemon.js --watch --out-file pokemon-bb.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmeshen/pokemon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmeshen/pokemon/issues"
+  },
+  "homepage": "https://github.com/jmeshen/pokemon#readme",
+  "dependencies": {
+    "babel-cli": "^7.0.0-beta.2",
+    "babel-preset-env": "^2.0.0-beta.2"
+  },
+  "babel": {
+    "presets": [
+      ["env", {
+        "targets": {
+          "browsers": ["last 2 versions"]
+        }
+      }]
+    ]
+  }
+}
