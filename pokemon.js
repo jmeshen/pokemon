@@ -50,6 +50,7 @@ function savePkmnLS(num, pkmn) {
 
 function getLocalData(number) {
   const { name, sprite } = JSON.parse(localStorage.getItem(number));
+  spriteEl.removeClass('pokeball');
   spriteEl.attr('src', sprite).hide().fadeIn();
   changeResults(name);
 }
@@ -65,7 +66,8 @@ function fetchPokemon(number) {
       const name = pokemon.name.toUpperCase();
       const spriteURL = `./sprites/${number}.png`;
       const pkmn = new Pokemon(name, spriteURL);
-      spriteEl.attr('src', spriteURL).show();
+      spriteEl.removeClass('pokeball');
+      spriteEl.attr('src', spriteURL).hide().fadeIn();
       changeResults(name);
       savePkmnLS(number, pkmn);
     },
@@ -86,7 +88,9 @@ function getPkmn() {
   }
   if (spriteEl.attr('src') !== '') {
     spriteEl.removeAttr('src');
+    spriteEl.attr('src', './sprites/pokeball.png');
     spriteEl.removeClass('revealSilh');
+    spriteEl.addClass('pokeball');
   }
 
   const number = pokeArray.shift();
