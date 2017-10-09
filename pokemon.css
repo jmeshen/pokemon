@@ -30,6 +30,7 @@ main {
   width: 50%;
   height: 0;
   padding-bottom: 50%;
+  position: relative;
 }
 #buttons-result {
   float: right;
@@ -60,6 +61,14 @@ img {
   -o-filter: brightness(1);
   -ms-filter: brightness(1);
   filter: brightness(1);
+}
+.pokeball {
+  width: 30%;
+  position: absolute;
+  top: 31%;
+  left: 32%;
+  filter: none;
+  animation: rotate 1s infinite alternate;
 }
 .reveal, .play-again, #pokedexText {
   display: none;
@@ -93,6 +102,15 @@ button {
 @font-face {
   font-family: "Pokemon";
   src: url("font/PokemonSolid.ttf");
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(20deg);
+  }
 }
 
 /*Media Queries*/
