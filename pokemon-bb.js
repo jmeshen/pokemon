@@ -72,20 +72,17 @@ function getLocalData(number) {
 }
 
 function fetchPokemon(number) {
-  var nameURL = "http://pokeapi.co/api/v1/pokemon/".concat(number);
+  var nameURL = "https://pokeapi.co/api/v2/pokemon/".concat(number);
   $.ajax({
-    type: 'GET',
-    url: nameURL,
-    dataType: 'jsonp',
-    success: function success(pokemon) {
-      var name = pokemon.name.toUpperCase();
-      var spriteURL = "./sprites/".concat(number, ".png");
-      var pkmn = new Pokemon(name, spriteURL);
-      spriteEl.removeClass('pokeball');
-      spriteEl.attr('src', spriteURL).hide().fadeIn();
-      changeResults(name);
-      savePkmnLS(number, pkmn);
-    }
+    url: nameURL
+  }).done(function (pokemon) {
+    var name = pokemon.name.toUpperCase();
+    var spriteURL = "./sprites/".concat(number, ".png");
+    var pkmn = new Pokemon(name, spriteURL);
+    spriteEl.removeClass('pokeball');
+    spriteEl.attr('src', spriteURL).hide().fadeIn();
+    changeResults(name);
+    savePkmnLS(number, pkmn);
   });
 }
 
