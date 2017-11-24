@@ -56,21 +56,18 @@ function getLocalData(number) {
 }
 
 function fetchPokemon(number) {
-  const nameURL = `http://pokeapi.co/api/v1/pokemon/${number}`;
+  const nameURL = `https://pokeapi.co/api/v2/pokemon/${number}`;
 
   $.ajax({
-    type: 'GET',
     url: nameURL,
-    dataType: 'jsonp',
-    success(pokemon) {
-      const name = pokemon.name.toUpperCase();
-      const spriteURL = `./sprites/${number}.png`;
-      const pkmn = new Pokemon(name, spriteURL);
-      spriteEl.removeClass('pokeball');
-      spriteEl.attr('src', spriteURL).hide().fadeIn();
-      changeResults(name);
-      savePkmnLS(number, pkmn);
-    },
+  }).done((pokemon) => {
+    const name = pokemon.name.toUpperCase();
+    const spriteURL = `./sprites/${number}.png`;
+    const pkmn = new Pokemon(name, spriteURL);
+    spriteEl.removeClass('pokeball');
+    spriteEl.attr('src', spriteURL).hide().fadeIn();
+    changeResults(name);
+    savePkmnLS(number, pkmn);
   });
 }
 
