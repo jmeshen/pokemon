@@ -72,7 +72,7 @@ function getLocalData(number) {
 }
 
 function fetchPokemon(number) {
-  var nameURL = "https://pokeapi.co/api/v2/pokemon/".concat(number);
+  var nameURL = "https://pokeapi.co/api/v2/pokemon/".concat(number, "/");
   $.ajax({
     url: nameURL
   }).done(function (pokemon) {

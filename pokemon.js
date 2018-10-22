@@ -62,7 +62,7 @@ function getLocalData(number) {
 }
 
 function fetchPokemon(number) {
-  const nameURL = `https://pokeapi.co/api/v2/pokemon/${number}`;
+  const nameURL = `https://pokeapi.co/api/v2/pokemon/${number}/`;
 
   $.ajax({
     url: nameURL,
