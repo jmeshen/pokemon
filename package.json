@@ -17,16 +17,21 @@
   },
   "homepage": "https://github.com/jmeshen/pokemon#readme",
   "dependencies": {
-    "babel-cli": "^7.0.0-beta.2",
+    "babel-cli": "^7.0.0-beta.3",
     "babel-preset-env": "^2.0.0-beta.2"
   },
   "babel": {
     "presets": [
-      ["env", {
-        "targets": {
-          "browsers": ["last 2 versions"]
+      [
+        "env",
+        {
+          "targets": {
+            "browsers": [
+              "last 2 versions"
+            ]
+          }
         }
-      }]
+      ]
     ]
   }
 }
